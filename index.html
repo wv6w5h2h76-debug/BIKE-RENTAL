@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"><meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#070a0f" media="(prefers-color-scheme: dark)"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="RYVON — World's most intelligent AI-powered motorcycle & scooter rental platform." />
+    <title>RYVON — Rent the moment. Engineered for freedom.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css?v=74" />
+  </head>
+  <body data-page="home" data-loading-label="LOADING">
+    <!-- RYVON Reusable Preloader Component -->
+    <div id="ryvon-loader" class="ryvon-loader" aria-live="polite" aria-label="Loading RYVON">
+      <script>
+        (function() {
+          // Immediately apply theme class to prevent white flash before JS loads
+          var theme = localStorage.getItem('rideos-theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          if (theme === 'dark') {
+            document.body.classList.add('dark');
+          }
+          
+          var isHome = document.body.dataset.page === 'home';
+          var labelText = document.body.dataset.loadingLabel || 'LOADING';
+          var inPages = window.location.pathname.replace(/\\/g, '/').includes('/pages/');
+          var bikeImgUrl = (inPages ? '../' : '') + 'assets/images/ryvon-superbike.png';
+          
+          var loader = document.getElementById('ryvon-loader');
+          if (isHome) {
+            loader.classList.add('is-home');
+          } else {
+            loader.classList.add('is-subpage');
+          }
+          
+          var contentHtml = '<div class="ryvon-loader-content">' +
+            '<div class="ryvon-loader-bike-wrap">' +
+              '<img src="' + bikeImgUrl + '" class="ryvon-loader-bike-trail trail-3" alt="" aria-hidden="true">' +
+              '<img src="' + bikeImgUrl + '" class="ryvon-loader-bike-trail trail-2" alt="" aria-hidden="true">' +
+              '<img src="' + bikeImgUrl + '" class="ryvon-loader-bike-trail trail-1" alt="" aria-hidden="true">' +
+              '<img src="' + bikeImgUrl + '" class="ryvon-loader-bike" alt="RYVON Superbike">' +
+              '<div class="ryvon-loader-streaks">' +
+                '<span class="ryvon-streak streak-1"></span>' +
+                '<span class="ryvon-streak streak-2"></span>' +
+                '<span class="ryvon-streak streak-3"></span>' +
+              '</div>' +
+              '<div class="ryvon-loader-shadow"></div>' +
+            '</div>' +
+            '<div class="ryvon-loader-glow-container">' +
+              '<div class="ryvon-loader-glow-beam"></div>' +
+            '</div>';
+
+          if (isHome) {
+            contentHtml += '<h1 class="ryvon-loader-wordmark">RYVON</h1>' +
+                           '<p class="ryvon-loader-sublabel">' + labelText + '</p>';
+          } else {
+            contentHtml += '<p class="ryvon-loader-sublabel is-subpage">' + labelText + '</p>';
+          }
+          
+          contentHtml += '</div>';
+          loader.innerHTML = contentHtml;
+
+          // Safety failsafe: ensure preloader never hangs indefinitely
+          setTimeout(function() {
+            var l = document.getElementById('ryvon-loader');
+            if (l && !l.classList.contains('fade-out')) {
+              l.classList.add('fade-out');
+              setTimeout(function() { if (l && l.parentNode) l.remove(); }, 600);
+            }
+          }, 3500);
+        })();
+      </script>
+    </div>
+    <div class="reading-progress" aria-hidden="true"></div>
+    <header id="site-header" class="site-header">
+      <div class="container nav">
+        <a class="brand" href="index.html">
+          <img class="brand-logo" src="assets/images/ryvon-logo.png" alt="RYVON logo">
+          <span class="brand-text">RYVON</span>
+        </a>
+        <ul class="nav-links">
+          <li class="mobile-drawer-header">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.1)">
+              <span class="brand" style="font-size:18px">
+                <img class="brand-logo" src="assets/images/ryvon-logo.png" alt="RYVON logo">
+                <strong style="color:#fff">RYVON</strong>
+              </span>
+              <button class="icon-btn mobile-close-btn" type="button" aria-label="Close menu" style="width:32px;height:32px;font-size:14px">✕</button>
+            </div>
+          </li>
+          <li><a class="active" href="index.html">Home</a></li>
+          <li><a href="pages/bikes.html">Explore Fleet</a></li>
+          <li><a href="pages/destinations.html">Curated Journeys</a></li>
+          <li><a href="pages/bikes.html#ai-build">Build My Ride AI ✨</a></li>
+          <li><a href="pages/bikes.html#fleet-status">Fleet Status</a></li>
+        </ul>
+        <div class="header-actions">
+          <div class="currency-selector desktop-only" title="Change Currency">
+            <button class="currency-select-btn" type="button">
+              <select id="currency-picker" aria-label="Currency Selector">
+                <option value="INR" selected>INR ▾</option>
+                <option value="USD">USD ▾</option>
+                <option value="EUR">EUR ▾</option>
+                <option value="GBP">GBP ▾</option>
+              </select>
+            </button>
+          </div>
+          <a class="user-avatar-btn desktop-only" href="pages/login.html" title="User Account">
+            <span class="user-avatar-img user-avatar-initial" aria-hidden="true">I</span>
+            <span class="avatar-arrow">▾</span>
+          </a>
+          <button class="icon-btn cmdk-open-btn" type="button" data-action="cmdk" aria-label="Quick search (Ctrl+K)">⌕</button>
+          <a class="icon-btn" href="pages/wishlist.html" aria-label="Wishlist">♡</a>
+          <button class="theme-toggle icon-btn" type="button" aria-label="Toggle dark/light mode">☾</button>
+          <button class="icon-btn menu-toggle" type="button" aria-label="Open menu">☰</button>
+        </div>
+      </div>
+    </header>
+    
+    <main id="app" data-static-home="true" tabindex="-1">
+      <section class="hero" aria-roledescription="carousel" aria-label="Featured RYVON journeys">
+        <div class="hero-carousel" aria-live="polite">
+          <div class="hero-carousel-track">
+            <div class="hero-slide"><img src="assets/images/ryvon-cinematic-sport.png" alt="Black sport motorcycle on a mountain pass at golden hour" fetchpriority="high"></div>
+            <div class="hero-slide"><img src="assets/images/ryvon-cinematic-group.png" alt="Motorcyclists riding together through a dramatic mountain valley"></div>
+            <div class="hero-slide"><img src="assets/images/ryvon-cinematic-journey.png" alt="Father with two children beside a motorcycle overlooking a mountain valley"></div>
+          </div>
+        </div>
+        <div class="container">
+            <h1>Where Peak<br><span class="caps-serif">ALTITUDE MEETS</span><br><span class="serif-gold-underline">Pure Freedom.</span></h1>
+            <p class="hero-copy">Recommended for your persona: <strong>Himalayan 450</strong>. 33+ Superbikes, Activas & Adventure Tourers, AI route intelligence, 32-point inspection, and instant keyless pickup.</p>
+            <p class="hero-mobile-copy">Your next great ride begins where the road opens up.</p>
+            
+            <div class="quick-trip-chips">
+              <button class="trip-chip" data-city="Weekend" data-type="Weekend" type="button">
+                <span class="chip-icon">💕</span> I Have a Weekend
+              </button>
+              <button class="trip-chip" data-city="Bengaluru" data-type="Commute" type="button">
+                <span class="chip-icon">🛵</span> Activa City Commute
+              </button>
+              <button class="trip-chip" data-city="Leh" data-type="Adventure" type="button">
+                <span class="chip-icon">🏔️</span> Leh Ladakh
+              </button>
+              <button class="trip-chip" data-city="Goa" data-type="Coast" type="button">
+                <span class="chip-icon">🌴</span> Goa Coast
+              </button>
+              <button class="trip-chip" data-action="build-my-ride" type="button">
+                <span class="chip-icon">🗺️</span> Build My Ride AI
+              </button>
+            </div>
+
+            <div class="hero-controls-wrapper">
+              <div class="hero-carousel-controls" aria-label="Hero carousel controls">
+                <button class="hero-carousel-arrow hero-carousel-prev" type="button" aria-label="Previous scene">‹</button>
+                <button class="hero-carousel-arrow hero-carousel-next" type="button" aria-label="Next scene">›</button>
+              </div>
+              <div class="hero-carousel-dots" role="tablist" aria-label="Choose a featured journey">
+                <button class="hero-carousel-dot is-active" type="button" role="tab" aria-label="Show the parked motorcycle scene" aria-selected="true"></button>
+                <button class="hero-carousel-dot" type="button" role="tab" aria-label="Show the group ride scene" aria-selected="false"></button>
+                <button class="hero-carousel-dot" type="button" role="tab" aria-label="Show the family journey scene" aria-selected="false"></button>
+              </div>
+            </div>
+
+            <div class="hero-stats">
+              <div><strong>4.98/5</strong><span>Rider Score</span></div>
+              <div><strong>50,000+</strong><span>Escapes Logged</span></div>
+              <div><strong>100%</strong><span>32-Point Check</span></div>
+              <div><strong>24/7</strong><span>Ride Concierge</span></div>
+            </div>
+            
+            
+            <div class="search-shell glass">
+            <form class="search-form" id="search-form">
+              <div class="field">
+                <label>PICKUP CITY</label>
+                <div class="field-select-wrap">
+                  <span class="field-icon">📍</span>
+                  <select id="city">
+                    <option value="Bengaluru" selected>Bengaluru</option>
+                    <option value="Goa">Goa Coast</option>
+                    <option value="Manali">Manali</option>
+                    <option value="Leh">Leh Ladakh</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field">
+                <label>PICKUP DATE</label>
+                <div class="field-select-wrap">
+                  <span class="field-icon">📅</span>
+                  <input id="start" type="date" value="2026-08-16" required>
+                </div>
+              </div>
+              <div class="field">
+                <label>RETURN DATE</label>
+                <div class="field-select-wrap">
+                  <span class="field-icon">📅</span>
+                  <input id="end" type="date" value="2026-08-19" required>
+                </div>
+              </div>
+              <div class="field">
+                <label>CATEGORY</label>
+                <div class="field-select-wrap">
+                  <span class="field-icon">🏍️</span>
+                  <select id="category">
+                    <option value="Adventure" selected>Adventure Tourer</option>
+                    <option value="Roadster">Roadster</option>
+                    <option value="Cruiser">Cruiser</option>
+                    <option value="Scooter">Scooter</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field">
+                <label>TRANSMISSION</label>
+                <div class="field-select-wrap">
+                  <span class="field-icon">⚙️</span>
+                  <select id="trans">
+                    <option value="any" selected>Any Gear</option>
+                    <option value="Manual">Manual</option>
+                    <option value="Automatic">Automatic</option>
+                  </select>
+                </div>
+              </div>
+              <div class="search-actions">
+                <button class="btn btn-search-gold" type="submit">Search Fleet →</button>
+              </div>
+            </form>
+            
+            <div class="booking-bar-meta">
+              <div class="meta-item"><span class="weather-pill">⛅ 16°C Manali</span></div>
+              <div class="meta-item">🛣️ Great Road Quality</div>
+              <div class="meta-item">📶 <strong>Keyless Pickup</strong> <span class="green-dot">•</span> Instant & Contactless</div>
+              <div class="meta-item social-proof-item">
+                <div class="avatar-group">
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=60&q=80" alt="Rider">
+                  <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=60&q=80" alt="Rider">
+                  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=60&q=80" alt="Rider">
+                </div>
+                <span>Trusted by 50K+ Riders</span>
+                <span class="stars-val">5.0 ★★★★★</span>
+              </div>
+              <div class="meta-item">🛡️ 32-Point Safety Check</div>
+            </div>
+          </div>
+
+          <div class="hero-features-bar">
+            <div class="feature-item">
+              <div class="feature-icon">🛡️</div>
+              <div class="feature-text">
+                <strong>32-Point Safety Check</strong>
+                <span>Every ride. Every time.</span>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">🎧</div>
+              <div class="feature-text">
+                <strong>24/7 Ride Concierge</strong>
+                <span>We're with you always.</span>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">🏷️</div>
+              <div class="feature-text">
+                <strong>Transparent Pricing</strong>
+                <span>No hidden charges.</span>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">⛽</div>
+              <div class="feature-text">
+                <strong>Fuel Efficient Fleet</strong>
+                <span>More kms. Less impact.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <div><span class="eyebrow">Curated Luxury Fleet</span><h2>Choose your machine for the <span class="serif">road ahead.</span></h2></div>
+            <a class="view-link" href="pages/bikes.html">Explore All (10)</a>
+          </div>
+          <div class="bike-grid">
+            <article class="bike-card card" data-bike="trident">
+              <div class="bike-photo"><a href="pages/bike-details.html?bike=trident"><img loading="lazy" src="assets/images/triumph-trident-660.jpg" alt="Triumph Trident 660"></a><button class="icon-btn heart" type="button" data-action="wish" data-id="trident">♡</button></div>
+              <div class="bike-info">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span class="badge ghost">Roadster</span><span class="availability available">Live Pickup</span></div>
+                <span class="ai-badge">✦ 98% Match for Highway</span>
+                <h3><a href="pages/bike-details.html?bike=trident">Triumph Trident 660</a></h3>
+                <div class="specs-pills"><span class="spec-pill">660 cc</span><span class="spec-pill">81 PS</span><span class="spec-pill">212 km/h</span></div>
+                <div class="bike-meta"><span>★ 4.9 · Verified Proof</span><span>Deposit: ₹5,000</span></div>
+                <div class="bike-price"><span><strong>₹1,699</strong> <small>/ day</small></span><span class="bike-actions"><button class="btn btn-outline btn-sm" data-action="view360" data-id="trident">360°</button><button class="btn btn-outline btn-sm" data-action="quick" data-id="trident">Specs</button><button class="btn btn-outline btn-sm" data-action="compare" data-id="trident">VS</button></span></div>
+              </div>
+            </article>
+
+            <article class="bike-card card" data-bike="bmw310">
+              <div class="bike-photo"><a href="pages/bike-details.html?bike=bmw310"><img loading="lazy" src="assets/images/bmw-g310-gs.jpg" alt="BMW G 310 GS"></a><button class="icon-btn heart" type="button" data-action="wish" data-id="bmw310">♡</button></div>
+              <div class="bike-info">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span class="badge ghost">Adventure</span><span class="availability available">Live Pickup</span></div>
+                <span class="ai-badge">✦ 99% Match for Mountains</span>
+                <h3><a href="pages/bike-details.html?bike=bmw310">BMW G 310 GS</a></h3>
+                <div class="specs-pills"><span class="spec-pill">313 cc</span><span class="spec-pill">34 PS</span><span class="spec-pill">143 km/h</span></div>
+                <div class="bike-meta"><span>★ 4.9 · Verified Proof</span><span>Deposit: ₹5,000</span></div>
+                <div class="bike-price"><span><strong>₹1,899</strong> <small>/ day</small></span><span class="bike-actions"><button class="btn btn-outline btn-sm" data-action="view360" data-id="bmw310">360°</button><button class="btn btn-outline btn-sm" data-action="quick" data-id="bmw310">Specs</button><button class="btn btn-outline btn-sm" data-action="compare" data-id="bmw310">VS</button></span></div>
+              </div>
+            </article>
+
+            <article class="bike-card card" data-bike="himalayan">
+              <div class="bike-photo"><a href="pages/bike-details.html?bike=himalayan"><img loading="lazy" src="assets/images/himalayan-450.jpg" alt="Himalayan 450"></a><button class="icon-btn heart" type="button" data-action="wish" data-id="himalayan">♡</button></div>
+              <div class="bike-info">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span class="badge ghost">Adventure</span><span class="availability available">Live Pickup</span></div>
+                <span class="ai-badge">✦ 97% Match for Leh Spiti</span>
+                <h3><a href="pages/bike-details.html?bike=himalayan">Himalayan 450</a></h3>
+                <div class="specs-pills"><span class="spec-pill">452 cc</span><span class="spec-pill">40 PS</span><span class="spec-pill">151 km/h</span></div>
+                <div class="bike-meta"><span>★ 4.8 · Verified Proof</span><span>Deposit: ₹4,000</span></div>
+                <div class="bike-price"><span><strong>₹1,499</strong> <small>/ day</small></span><span class="bike-actions"><button class="btn btn-outline btn-sm" data-action="view360" data-id="himalayan">360°</button><button class="btn btn-outline btn-sm" data-action="quick" data-id="himalayan">Specs</button><button class="btn btn-outline btn-sm" data-action="compare" data-id="himalayan">VS</button></span></div>
+              </div>
+            </article>
+
+            <article class="bike-card card" data-bike="meteor">
+              <div class="bike-photo"><a href="pages/bike-details.html?bike=meteor"><img loading="lazy" src="assets/images/royal-enfield-meteor-350.jpg" alt="Royal Enfield Meteor 350"></a><button class="icon-btn heart" type="button" data-action="wish" data-id="meteor">♡</button></div>
+              <div class="bike-info">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span class="badge ghost">Cruiser</span><span class="availability available">Live Pickup</span></div>
+                <span class="ai-badge">✦ 95% Match for Coastal</span>
+                <h3><a href="pages/bike-details.html?bike=meteor">Royal Enfield Meteor 350</a></h3>
+                <div class="specs-pills"><span class="spec-pill">349 cc</span><span class="spec-pill">20.4 PS</span><span class="spec-pill">120 km/h</span></div>
+                <div class="bike-meta"><span>★ 4.8 · Verified Proof</span><span>Deposit: ₹3,500</span></div>
+                <div class="bike-price"><span><strong>₹1,399</strong> <small>/ day</small></span><span class="bike-actions"><button class="btn btn-outline btn-sm" data-action="view360" data-id="meteor">360°</button><button class="btn btn-outline btn-sm" data-action="quick" data-id="meteor">Specs</button><button class="btn btn-outline btn-sm" data-action="compare" data-id="meteor">VS</button></span></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" style="background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+        <div class="container">
+          <div class="section-head">
+            <div><span class="eyebrow">Expedition Zones</span><h2>Curated routes. <span class="serif">Unmatched vistas.</span></h2></div>
+            <a class="view-link" href="pages/destinations.html">View All Expeditions</a>
+          </div>
+          <div class="destination-grid">
+            <a href="pages/destinations.html#ladakh" class="dest-card">
+              <img src="https://images.unsplash.com/photo-1581793745862-99fde7fa73d2?auto=format&fit=crop&w=800&q=80" alt="Leh Ladakh Pass" class="dest-card-bg">
+              <div class="dest-overlay"></div>
+              <div class="dest-content">
+                <h3 class="dest-title">Leh Ladakh Pass</h3>
+                <div class="dest-subtitle">High altitude passes & Pangong Tso lake.</div>
+                <div class="dest-tags"><span class="dest-tag">May – Sep</span><span class="dest-tag">14°C Crisp ☀️</span><span class="dest-tag">Difficulty: Extreme</span></div>
+              </div>
+            </a>
+            <a href="pages/destinations.html#spiti" class="dest-card">
+              <img src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=800&q=80" alt="Spiti Valley" class="dest-card-bg">
+              <div class="dest-overlay"></div>
+              <div class="dest-content">
+                <h3 class="dest-title">Spiti Valley</h3>
+                <div class="dest-subtitle">Rugged cold desert trails & monasteries.</div>
+                <div class="dest-tags"><span class="dest-tag">Jun – Oct</span><span class="dest-tag">12°C Dry 🏔️</span><span class="dest-tag">Difficulty: Hard</span></div>
+              </div>
+            </a>
+            <a href="pages/destinations.html#goa" class="dest-card">
+              <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=800&q=80" alt="Goa Coastal Drive" class="dest-card-bg">
+              <div class="dest-overlay"></div>
+              <div class="dest-content">
+                <h3 class="dest-title">Goa Coastal Drive</h3>
+                <div class="dest-subtitle">Palm-fringed sea highways & sunset rides.</div>
+                <div class="dest-tags"><span class="dest-tag">Oct – Mar</span><span class="dest-tag">28°C Sunny 🌴</span><span class="dest-tag">Difficulty: Easy</span></div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="ai-planner-inline">
+            <span class="badge" style="background:var(--lime);color:#070a0f;margin-bottom:6px">✦ RideOS Neural Engine</span>
+            <h2 style="margin:6px 0">Match your trip terrain in <span class="serif">seconds.</span></h2>
+            <p class="muted" style="color:#cbd5e1;max-width:520px;margin-bottom:0">Select your destination terrain and total estimated kilometers for instant fuel & bike cost telemetry.</p>
+            <div class="ai-planner-grid">
+              <div>
+                <label style="font-size:11px;font-weight:800;display:block;margin-bottom:4px">Select Journey Terrain</label>
+                <select id="inline-ai-terrain" class="filter-select" style="margin-bottom:10px">
+                  <option value="ladakh">High Altitude Passes (Leh Ladakh / Spiti)</option>
+                  <option value="coastal">Coastal Highways (Goa / Kerala)</option>
+                  <option value="twisties">Mountain Twisties (Manali / Coorg)</option>
+                  <option value="city">City Commute & Sunset Rides</option>
+                </select>
+                <label style="font-size:11px;font-weight:800;display:block;margin-bottom:4px">Total Distance (km)</label>
+                <input id="inline-ai-km" type="number" value="450" class="filter-select" style="margin-bottom:12px">
+                <button class="btn btn-primary" id="btn-run-inline-ai" style="width:100%" type="button">Calculate Instant AI Recommendation ✨</button>
+              </div>
+              <div id="inline-ai-result-box" style="padding:16px;background:rgba(255,255,255,0.06);border-radius:14px;border:1px solid rgba(255,255,255,0.12)">
+                <span class="badge ghost" style="margin-bottom:6px">99% Optimal Match</span>
+                <h3 style="margin:4px 0" id="inline-ai-title">Himalayan 450</h3>
+                <p class="muted" style="color:#cbd5e1;font-size:12px" id="inline-ai-desc">Engineered for Adventure terrain with 452 cc displacement & 40 PS power.</p>
+                <div class="invoice" style="background:rgba(0,0,0,0.4);border-radius:8px;padding:10px;margin-top:10px;color:#fff">
+                  <div><span>Est. Trip Fuel</span><strong id="inline-ai-fuel">₹1,530</strong></div>
+                  <div><span>Daily Rental</span><strong id="inline-ai-price">₹1,499</strong></div>
+                  <div><span>Terrain Safety</span><strong>98/100 (Optimal)</strong></div>
+                </div>
+                <a class="btn btn-primary" id="inline-ai-book-btn" style="margin-top:12px;width:100%" href="pages/booking.html?bike=himalayan">Book Motorcycle Now →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats-band">
+        <div class="container">
+          <div class="stats-grid">
+            <div class="stat"><strong data-count="50" data-suffix="k+">50k+</strong><span>rides completed</span></div>
+            <div class="stat"><strong data-count="18" data-suffix="">18</strong><span>expedition hubs</span></div>
+            <div class="stat"><strong data-count="4.98" data-suffix="/5">4.98/5</strong><span>rider satisfaction</span></div>
+            <div class="stat"><strong data-count="100" data-suffix="%">100%</strong><span>telemetry verified</span></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="site-footer" class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a class="brand" href="index.html">
+              <img class="brand-logo" src="assets/images/ryvon-logo.png" alt="RYVON logo">
+              <span class="brand-text">RYVON</span>
+            </a>
+            <p>The world’s most intelligent motorcycle rental platform. Designed for pure freedom on the open road.</p>
+            <div class="socials"><a class="social" href="#">ig</a><a class="social" href="#">𝕏</a><a class="social" href="#">yt</a></div>
+          </div>
+          <div class="footer-col"><h3>Fleet & Routes</h3><a href="pages/bikes.html">All Motorcycles</a><a href="pages/destinations.html">Expedition Zones</a><a href="pages/bikes.html?type=Adventure">Adventure Fleet</a><a href="pages/wishlist.html">Saved Shortlist</a></div>
+          <div class="footer-col"><h3>RideOS Intelligence</h3><a href="pages/faq.html">FAQs & Safety</a><a href="pages/contact.html">Ride Command Hub</a><a href="#" data-action="ai-assistant">AI Ride Planner</a></div>
+          <div class="footer-col"><h3>Members Circle</h3><a href="pages/dashboard.html">Telemetry Dashboard</a><a href="pages/booking-history.html">Journey Logs</a><a href="pages/profile.html">Rider Profile</a><a href="pages/login.html">Member Sign in</a></div>
+        </div>
+        <div class="footer-bottom"><span>© 2026 RYVON Technologies. Engineered for the scenic detour.</span><span>Privacy Policy · Terms of Service · Safety Charter</span></div>
+      </div>
+    </footer>
+
+    <button class="back-top" type="button" aria-label="Back to top">↑</button>
+    <div class="toast-region" aria-live="polite" aria-atomic="true"></div>
+    <div class="modal-root"></div>
+
+    <!-- RYVON Mobile Bottom Navigation Bar (Mobile & Tablet) -->
+    <div id="mobile-bottom-nav-root">
+      <nav class="mobile-bottom-nav" id="mobile-bottom-nav" aria-label="Mobile Navigation">
+        <a class="bottom-nav-item active" href="index.html" data-nav="home" aria-label="Home">
+          <div class="bottom-nav-icon-box">
+            <svg class="nav-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#070a0f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 10.5L12 3l9 7.5V20a1.5 1.5 0 0 1-1.5 1.5H4.5A1.5 1.5 0 0 1 3 20v-9.5z"/>
+              <polyline points="9 21 9 13 15 13 15 21"/>
+            </svg>
+          </div>
+          <span class="bottom-nav-label">Home</span>
+        </a>
+        <a class="bottom-nav-item" href="pages/bikes.html" data-nav="fleet" aria-label="Explore Fleet">
+          <div class="bottom-nav-icon-box">
+            <svg class="nav-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="5.5" cy="17" r="3.2"/>
+              <circle cx="18.5" cy="17" r="3.2"/>
+              <path d="M5.5 17l4.5-8.5h5l2.5 8.5"/>
+              <path d="M10 8.5l4 8.5"/>
+              <path d="M13.5 5.5h3.5"/>
+            </svg>
+          </div>
+          <span class="bottom-nav-label">Fleet</span>
+        </a>
+        <a class="bottom-nav-item" href="pages/booking-history.html" data-nav="journeys" aria-label="My Journeys">
+          <div class="bottom-nav-icon-box" style="position:relative">
+            <svg class="nav-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="8" y1="13" x2="16" y2="13"/>
+              <line x1="8" y1="17" x2="13" y2="17"/>
+            </svg>
+            <span class="bottom-nav-badge-dot"></span>
+          </div>
+          <span class="bottom-nav-label">Journeys</span>
+        </a>
+        <a class="bottom-nav-item" href="pages/destinations.html" data-nav="destinations" aria-label="Destinations">
+          <div class="bottom-nav-icon-box">
+            <svg class="nav-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2.5 19L9.5 7.5L14 15L17.5 10L22 19H2.5Z"/>
+            </svg>
+          </div>
+          <span class="bottom-nav-label">Destinations</span>
+        </a>
+        <button class="bottom-nav-item" id="bottom-nav-more-btn" type="button" aria-label="More Options" aria-haspopup="dialog" aria-expanded="false" data-nav="more">
+          <div class="bottom-nav-icon-box">
+            <svg class="nav-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+              <circle cx="5.5" cy="12" r="2.2"/>
+              <circle cx="12" cy="12" r="2.2"/>
+              <circle cx="18.5" cy="12" r="2.2"/>
+            </svg>
+          </div>
+          <span class="bottom-nav-label">More</span>
+        </button>
+      </nav>
+    </div>
+
+    <script src="assets/js/app.js?v=74" defer></script>
+    </body>
+</html>

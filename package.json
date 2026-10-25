@@ -1,0 +1,13 @@
+{
+  "name": "ryvon-subroot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "RYVON Bike Rental System Intermediate Directory",
+  "scripts": {
+    "start": "npm --prefix \"Ryvon Bike Rental\" start",
+    "dev": "npm --prefix \"Ryvon Bike Rental\" start",
+    "server": "npm --prefix \"Ryvon Bike Rental\" server",
+    "server:dev": "npm --prefix \"Ryvon Bike Rental\" server:dev",
+    "test": "npm --prefix \"Ryvon Bike Rental\" test"
+  }
+}
